@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>카드 A — 에너지 자원 고갈</title>
+
+<style>
+/* 전역 폰트 override */
+*, *::before, *::after {
+  font-family: "Apple SD Gothic Neo", "Malgun Gothic", "맑은 고딕", "Noto Sans CJK KR", sans-serif !important;
+}
+.section-title, .card-badge, .hero h1, .hero h2, .stat-num, .big-num, .country-stat, .korea-target .kt-num, .q-num, .q-text, .padlet-cta h3, .btn-padlet, .question-section h2, .flow-step .fs-num, .card-title, .go-btn {
+  font-weight: 800 !important;
+  letter-spacing: -0.3px;
+}
+
+  :root {
+    --red:    #C0392B;
+    --red-lt: #E74C3C;
+    --red-bg: #FFF5F5;
+    --navy:   #0B2E3F;
+    --teal:   #0D7377;
+    --mint:   #32C8A0;
+    --gold:   #F5A623;
+    --dark:   #1A2F35;
+    --gray:   #6B7280;
+    --white:  #FFFFFF;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: "Apple SD Gothic Neo", "Malgun Gothic", "맑은 고딕", sans-serif;
+    background: #F8FAFB;
+    color: var(--dark);
+    min-height: 100vh;
+  }
+
+  /* ── Header ── */
+  .hero {
+    background: var(--navy);
+    padding: 0;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse at 80% 50%, rgba(192,57,43,0.25) 0%, transparent 65%);
+  }
+  .hero-bar { height: 6px; background: var(--red); }
+  .hero-inner {
+    max-width: 800px; margin: 0 auto;
+    padding: 40px 24px 36px;
+    position: relative; z-index: 1;
+  }
+  .card-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--red); color: #fff;
+    font-family: "Apple SD Gothic Neo", "Malgun Gothic", "맑은 고딕", sans-serif;
+    font-size: 13px; padding: 4px 14px;
+    border-radius: 20px; margin-bottom: 16px;
+    letter-spacing: 0.05em;
+  }
+  .hero h1 {
+    font-family: "Apple SD Gothic Neo", "Malgun Gothic", "맑은 고딕", sans-serif;
+    font-size: clamp(28px, 5vw, 44px);
+    color: #fff; line-height: 1.2;
+    margin-bottom: 12px;
+  }
+  .hero h1 span { color: var(--gold); }
+  .hero-sub {
+    color: rgba(255,255,255,0.65);
+    font-size: 14px; line-height: 1.6;
+  }
+  .time-badge {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.2);
+    color: rgba(255,255,255,0.8);
+    font-size: 12px; padding: 5px 12px;
+    border-radius: 20px; margin-top: 14px;
+  }
+
+  /* ── Content ── */
+  .content { max-width: 800px; margin: 0 auto; padding: 32px 24px 60px; }
+
+  .section {
+    background: var(--white);
+    border-radius: 16px;
+    padding: 28px 28px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    border-left: 5px solid var(--red);
+  }
+  .section-title {
+    font-family: "Apple SD Gothic Neo", "Malgun Gothic", "맑은 고딕", sans-serif;
+    font-size: 18px; color: var(--red);
+    margin-bottom: 16px;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .section-title .icon {
+    width: 32px; height: 32px;
+    background: var(--red-bg);
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 16px;
+  }
+  .body-text {
+    font-size: 15px; line-height: 1.85; color: #374151;
+  }
+  .body-text strong { color: var(--red); font-weight: 700; }
+
+  /* stat grid */
+  .stat-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 14px; margin: 20px 0;
+  }
+  @media(max-width:560px){ .stat-grid { grid-template-columns: 1fr 1fr; } }
+  .stat-card {
+    background: var(--navy);
+    border-radius: 12px;
+    padding: 18px 14px;
+    text-align: center;
+    border-top: 4px solid var(--red);
+  }
+  .stat-num {
+    font-family: "Apple SD Gothic Neo", "Malgun Gothic", "맑은 고딕", sans-serif;
+    font-size: 34px; color: var(--gold);
+    line-height: 1;
+  }
+  .stat-unit { font-size: 13px; color: rgba(255,255,255,0.5); margin-top: 2px; }
+  .stat-label { font-size: 13px; color: rgba(255,255,255,0.8); margin-top: 6px; font-weight: 500; }
+
+  /* highlight box */
+  .highlight {
+    background: var(--red-bg);
+    border: 1.5px solid rgba(192,57,43,0.2);
+    border-radius: 12px; padding: 18px 20px;
+    margin: 16px 0;
+  }
+  .highlight p {
+    font-size: 14px; line-height: 1.8; color: var(--dark);
+  }
+  .highlight p + p { margin-top: 8px; }
+  .hl-icon { font-size: 18px; margin-right: 6px; }
+
+  /* korea box */
+  .korea-box {
+    background: linear-gradient(135deg, #0B2E3F 0%, #0D3D56 100%);
+    border-radius: 14px; padding: 22px 22px;
+    margin: 20px 0; color: #fff;
+  }
+  .korea-box h3 {
+    font-family: "Apple SD Gothic Neo", "Malgun Gothic", "맑은 고딕", sans-serif;
+    font-size: 16px; color: var(--mint); margin-bottom: 12px;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .korea-box ul { list-style: none; padding: 0; }
+  .korea-box li {
+    font-size: 14px; line-height: 1.7;
+    padding: 6px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    display: flex; gap: 10px; align-items: flex-start;
+  }
+  .korea-box li:last-child { border-bottom: none; }
+  .korea-box li::before { content: '→'; color: var(--mint); flex-shrink: 0; }
+
+  /* question section */
+  .question-section {
+    background: linear-gradient(135deg, var(--red) 0%, #A93226 100%);
+    border-radius: 16px; padding: 28px 28px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 20px rgba(192,57,43,0.3);
+  }
+  .question-section h2 {
+    font-family: "Apple SD Gothic Neo", "Malgun Gothic", "맑은 고딕", sans-serif;
+    font-size: 20px; color: #fff;
+    margin-bottom: 20px;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .question-item {
+    background: rgba(255,255,255,0.12);
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 12px; padding: 18px 20px;
+    margin-bottom: 12px;
+    backdrop-filter: blur(4px);
+  }
+  .question-item:last-child { margin-bottom: 0; }
+  .q-num {
+    font-family: "Apple SD Gothic Neo", "Malgun Gothic", "맑은 고딕", sans-serif;
+    font-size: 13px; color: var(--gold);
+    margin-bottom: 6px; letter-spacing: 0.05em;
+  }
+  .q-text {
+    font-size: 15px; color: #fff; line-height: 1.6; font-weight: 500;
+  }
+  .q-hint {
+    font-size: 12px; color: rgba(255,255,255,0.6);
+    margin-top: 6px; font-style: italic;
+  }
+
+  /* padlet CTA */
+  .padlet-cta {
+    background: var(--white);
+    border: 2px solid var(--mint);
+    border-radius: 16px; padding: 24px 28px;
+    text-align: center;
+    box-shadow: 0 4px 16px rgba(50,200,160,0.15);
+  }
+  .padlet-cta h3 {
+    font-family: "Apple SD Gothic Neo", "Malgun Gothic", "맑은 고딕", sans-serif;
+    font-size: 18px; color: var(--navy); margin-bottom: 8px;
+  }
+  .padlet-cta p {
+    font-size: 14px; color: var(--gray); margin-bottom: 18px; line-height: 1.6;
+  }
+  .btn-padlet {
+    display: inline-flex; align-items: center; gap: 10px;
+    background: var(--navy); color: #fff;
+    font-family: "Apple SD Gothic Neo", "Malgun Gothic", "맑은 고딕", sans-serif;
+    font-size: 16px; padding: 13px 32px;
+    border-radius: 40px; text-decoration: none;
+    transition: transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 4px 14px rgba(11,46,63,0.35);
+  }
+  .btn-padlet:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(11,46,63,0.45);
+  }
+  .btn-padlet .arrow { font-size: 20px; }
+
+  /* progress */
+  .progress-bar {
+    height: 4px; background: rgba(255,255,255,0.15);
+    margin-bottom: 0;
+  }
+  .progress-fill { height: 100%; background: var(--red); width: 25%; }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="hero-bar"></div>
+  <div class="progress-bar"><div class="progress-fill"></div></div>
+  <div class="hero-inner">
+    <div class="card-badge">⛽ 카드 A · 에너지 뉴스 큐레이터</div>
+    <h1>에너지 자원이<br><span>고갈되고 있다</span></h1>
+    <p class="hero-sub">석유, 석탄, 천연가스 — 우리가 매일 쓰는 에너지의 원료가<br>빠르게 사라지고 있습니다.</p>
+    <div class="time-badge">⏱ 학습 시간: 약 5분</div>
+  </div>
+</div>
+
+<div class="content">
+
+  <!-- 핵심 통계 -->
+  <div class="section">
+    <div class="section-title">
+      <div class="icon">📊</div>
+      화석 연료, 얼마나 남았을까?
+    </div>
+    <p class="body-text">
+      우리가 지금 쓰는 에너지의 대부분은 <strong>화석 연료</strong>에서 나옵니다.
+      화석 연료는 수억 년에 걸쳐 동식물이 지하에서 변한 것으로, 한 번 쓰면 다시 만들어지지 않습니다.
+      인류는 산업혁명 이후 200년 만에 이 자원을 엄청난 속도로 써버리고 있습니다.
+    </p>
+    <div class="stat-grid">
+      <div class="stat-card">
+        <div class="stat-num">~50년</div>
+        <div class="stat-unit">남은 매장량 기준</div>
+        <div class="stat-label">⛽ 석유</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">~50년</div>
+        <div class="stat-unit">남은 매장량 기준</div>
+        <div class="stat-label">🔥 천연가스</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">~130년</div>
+        <div class="stat-unit">남은 매장량 기준</div>
+        <div class="stat-label">⬛ 석탄</div>
+      </div>
+    </div>
+    <p class="body-text">
+      물론 새로운 유전이 발견되거나 채굴 기술이 발전하면 이 수치는 달라질 수 있습니다.
+      하지만 <strong>언젠가는 반드시 고갈된다</strong>는 사실은 변하지 않습니다.
+    </p>
+  </div>
+
+  <!-- 한국의 상황 -->
+  <div class="section">
+    <div class="section-title">
+      <div class="icon">🇰🇷</div>
+      우리나라는?
+    </div>
+    <div class="korea-box">
+      <h3>🔍 대한민국 에너지 현황</h3>
+      <ul>
+        <li>에너지 자원의 <strong>95% 이상</strong>을 해외에서 수입 — 국내 생산 거의 없음</li>
+        <li>2023년 에너지 수입액: 약 <strong>1,900억 달러</strong> (한화 약 250조 원)</li>
+        <li>국제 에너지 가격이 오르면 → 전기·가스 요금이 바로 오름</li>
+        <li>러시아-우크라이나 전쟁(2022) 이후 전 세계 에너지 위기 → 우리나라도 직격탄</li>
+      </ul>
+    </div>
+    <div class="highlight">
+      <p><span class="hl-icon">💡</span><strong>생각해봐요:</strong> 만약 중동에서 전쟁이 일어나 석유 수출이 막히면 우리나라는 어떻게 될까요? 1973년 1차 오일쇼크 때 한국은 극심한 혼란을 겪었습니다.</p>
+    </div>
+  </div>
+
+  <!-- 왜 문제인가 -->
+  <div class="section">
+    <div class="section-title">
+      <div class="icon">⚠️</div>
+      왜 이게 문제인가?
+    </div>
+    <p class="body-text">
+      단순히 "에너지가 사라진다"는 것만이 문제가 아닙니다.
+      화석 연료를 태울 때는 <strong>이산화탄소(CO₂)</strong>가 발생하여 기후위기를 악화시킵니다.
+      또한 자원이 특정 지역에만 집중되어 있어 <strong>에너지 불평등</strong> 문제도 생깁니다.
+    </p>
+    <div class="highlight">
+      <p><span class="hl-icon">🔗</span>에너지 자원 고갈은 기후위기(카드 B), 에너지 불평등(카드 C)과 모두 연결되어 있는 복합적인 문제입니다.</p>
+    </div>
+    <p class="body-text" style="margin-top:14px;">
+      그래서 과학자와 기술자들은 <strong>화석 연료를 대체할 새로운 에너지</strong>를 개발하고 있습니다.
+      이것이 바로 다음 수업에서 배울 <strong>친환경 에너지</strong>입니다.
+    </p>
+  </div>
+
+  <!-- 핵심 질문 -->
+  <div class="question-section">
+    <h2>💬 핵심 질문에 답해보세요</h2>
+    <div class="question-item">
+      <div class="q-num">질문 1</div>
+      <div class="q-text">화석 연료가 고갈되면 우리 생활에 어떤 일이 일어날지 구체적으로 설명해보세요.</div>
+      <div class="q-hint">힌트: 전기, 교통, 난방, 식품 생산 등을 생각해보세요</div>
+    </div>
+    <div class="question-item">
+      <div class="q-num">질문 2</div>
+      <div class="q-text">한국이 에너지 자원의 95%를 수입에 의존한다는 것은 어떤 위험을 의미하나요? 구체적인 상황을 예로 들어 설명해보세요.</div>
+      <div class="q-hint">힌트: 국제 정세, 가격 변동, 에너지 안보를 생각해보세요</div>
+    </div>
+    <div class="question-item">
+      <div class="q-num">질문 3 — 카드 A 브리핑 핵심</div>
+      <div class="q-text">카드 A를 읽지 못한 친구들에게 30초 안에 핵심을 전달한다면, 어떤 말을 할 건가요?</div>
+      <div class="q-hint">숫자와 한국 상황을 포함해서 설명해보세요</div>
+    </div>
+  </div>
+
+  <!-- 패들렛 CTA -->
+  <div class="padlet-cta">
+    <h3>📌 이제 패들렛으로 돌아가세요</h3>
+    <p>학습한 내용을 바탕으로<br><strong>카드 A 담당 칸</strong>에 질문 3의 답변을 작성해주세요.<br>다른 모둠의 카드 내용도 함께 살펴보세요!</p>
+    <a href="PADLET_URL_HERE" class="btn-padlet">
+      패들렛으로 답변 작성하기 <span class="arrow">→</span>
+    </a>
+  </div>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>카드 B — 기후위기와 에너지</title>
+
+<style>
+/* 전역 폰트 override */
+*, *::before, *::after {
+  font-family: "Apple SD Gothic Neo", "Malgun Gothic", "맑은 고딕", "Noto Sans CJK KR", sans-serif !important;
+}
+.section-title, .card-badge, .hero h1, .hero h2, .stat-num, .big-num, .country-stat, .korea-target .kt-num, .q-num, .q-text, .padlet-cta h3, .btn-padlet, .question-section h2, .flow-step .fs-num, .card-title, .go-btn {
+  font-weight: 800 !important;
+  letter-spacing: -0.3px;
+}
+
+  :root {
+    --blue:   #1A5276;
+    --blue-lt:#2980B9;
+    --blue-bg:#EBF5FB;
+    --navy:   #0B2E3F;
+    --teal:   #0D7377;
+    --mint:   #32C8A0;
+    --gold:   #F5A623;
+    --warn:   #E85D4A;
+    --dark:   #1A2F35;
+    --gray:   #6B7280;
+    --white:  #FFFFFF;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: "Apple SD Gothic Neo", "Malgun Gothic", "맑은 고딕", sans-serif; background: #F8FAFB; color: var(--dark); min-height: 100vh; }
+
+  .hero { background: var(--navy); position: relative; overflow: hidden; }
+  .hero::before {
+    content: ''; position: absolute; inset: 0;
+    background: radial-gradient(ellipse at 20% 60%, rgba(26,82,118,0.5) 0%, transparent 65%);
+  }
+  .hero-bar { height: 6px; background: var(--blue-lt); }
+  .progress-bar { height: 4px; background: rgba(255,255,255,0.15); }
+  .progress-fill { height: 100%; background: var(--blue-lt); width: 50%; }
+  .hero-inner { max-width: 800px; margin: 0 auto; padding: 40px 24px 36px; position: relative; z-index: 1; }
+  .card-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--blue); color: #fff;
+    font-family: "Apple SD Gothic Neo", "Malgun Gothic", "맑은 고딕", sans-serif; font-size: 13px;
+    padding: 4px 14px; border-radius: 20px; margin-bottom: 16px;
+  }
+  .hero h1 {
+    font-family: "Apple SD Gothic Neo", "Malgun Gothic", "맑은 고딕", sans-serif;
+    font-size: clamp(28px, 5vw, 44px); color: #fff; line-height: 1.2; margin-bottom: 12px;
+  }
+  .hero h1 span { color: var(--gold); }
+  .hero-sub { color: rgba(255,255,255,0.65); font-size: 14px; line-height: 1.6; }
+  .time-badge {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2);
+    color: rgba(255,255,255,0.8); font-size: 12px; padding: 5px 12px;
+    border-radius: 20px; margin-top: 14px;
+  }
+
+  .content { max-width: 800px; margin: 0 auto; padding: 32px 24px 60px; }
+
+  .section {
+    background: var(--white); border-radius: 16px; padding: 28px;
+    margin-bottom: 20px; box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    border-left: 5px solid var(--blue-lt);
+  }
+  .section-title {
+    font-family: "Apple SD Gothic Neo", "Malgun Gothic", "맑은 고딕", sans-serif; font-size: 18px; color: var(--blue);
+    margin-bottom: 16px; display: flex; align-items: center; gap: 8px;
+  }
+  .section-title .icon {
+    width: 32px; height: 32px; background: var(--blue-bg);
+    border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 16px;
+  }
+  .body-text { font-size: 15px; line-height: 1.85; color: #374151; }
+  .body-text strong { color: var(--blue); font-weight: 700; }
+
+  /* temperature visual */
+  .temp-visual {
+    background: linear-gradient(135deg, #0B2E3F 0%, #1A3040 100%);
+    border-radius: 14px; padding: 24px; margin: 18px 0;
+    color: #fff;
+  }
+  .temp-visual h3 {
+    font-family: "Apple SD Gothic Neo", "Malgun Gothic", "맑은 고딕", sans-serif; font-size: 15px;
+    color: var(--mint); margin-bottom: 16px;
+  }
+  .temp-row {
+    display: flex; align-items: center; gap: 14px; margin-bottom: 10px;
+  }
+  .temp-label { font-size: 13px; color: rgba(255,255,255,0.7); min-width: 80px; }
+  .temp-bar-wrap { flex: 1; height: 24px; background: rgba(255,255,255,0.08); border-radius: 12px; overflow: hidden; }
+  .temp-bar { height: 100%; border-radius: 12px; display: flex; align-items: center; padding-left: 10px; }
+  .temp-bar span { font-family: "Apple SD Gothic Neo", "Malgun Gothic", "맑은 고딕", sans-serif; font-size: 13px; color: #fff; }
+  .tb-1850 { width: 30%; background: #3B82F6; }
+  .tb-1970 { width: 55%; background: #F59E0B; }
+  .tb-2000 { width: 72%; background: #EF4444; }
+  .tb-2024 { width: 92%; background: #DC2626; }
+
+  /* event cards */
+  .event-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 16px 0;
+  }
+  @media(max-width:500px){ .event-grid { grid-template-columns: 1fr; } }
+  .event-card {
+    background: var(--blue-bg); border-radius: 10px; padding: 14px 16px;
+    border-left: 4px solid var(--blue-lt);
+  }
+  .event-card .ev-icon { font-size: 22px; margin-bottom: 6px; }
+  .event-card .ev-title { font-family: "Apple SD Gothic Neo", "Malgun Gothic", "맑은 고딕", sans-serif; font-size: 14px; color: var(--blue); margin-bottom: 4px; }
+  .event-card .ev-body { font-size: 12px; line-height: 1.6; color: #4B5563; }
+
+  /* mechanism */
+  .mechanism {
+    display: flex; flex-direction: column; gap: 0;
+    margin: 18px 0;
+  }
+  .mech-step {
+    display: flex; align-items: flex-start; gap: 14px;
+    padding: 14px 0;
+    border-bottom: 1px solid rgba(0,0,0,0.06);
+  }
+  .mech-step:last-child { border-bottom: none; }
+  .mech-num {
+    width: 30px; height: 30px; min-width: 30px;
+    background: var(--blue-lt); color: #fff;
+    border-radius: 50%; display: flex; align-items: center; justify-content: center;
+    font-family: "Apple SD Gothic Neo", "Malgun Gothic", "맑은 고딕", sans-serif; font-size: 15px;
+  }
+  .mech-text { font-size: 14px; line-height: 1.7; color: #374151; }
+  .mech-text strong { color: var(--blue); }
+
+  .highlight {
+    background: var(--blue-bg); border: 1.5px solid rgba(26,82,118,0.2);
+    border-radius: 12px; padding: 18px 20px; margin: 16px 0;
+  }
+  .highlight p { font-size: 14px; line-height: 1.8; }
+
+  /* question */
+  .question-section {
+    background: linear-gradient(135deg, var(--blue) 0%, #154360 100%);
+    border-radius: 16px; padding: 28px;
+    margin-bottom: 20px; box-shadow: 0 4px 20px rgba(26,82,118,0.3);
+  }
+  .question-section h2 {
+    font-family: "Apple SD Gothic Neo", "Malgun Gothic", "맑은 고딕", sans-serif; font-size: 20px; color: #fff;
+    margin-bottom: 20px; display: flex; align-items: center; gap: 10px;
+  }
+  .question-item {
+    background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 12px; padding: 18px 20px; margin-bottom: 12px;
+  }
+  .question-item:last-child { margin-bottom: 0; }
+  .q-num { font-family: "Apple SD Gothic Neo", "Malgun Gothic", "맑은 고딕", sans-serif; font-size: 13px; color: var(--gold); margin-bottom: 6px; }
+  .q-text { font-size: 15px; color: #fff; line-height: 1.6; font-weight: 500; }
+  .q-hint { font-size: 12px; color: rgba(255,255,255,0.6); margin-top: 6px; font-style: italic; }
+
+  .padlet-cta {
+    background: var(--white); border: 2px solid var(--mint);
+    border-radius: 16px; padding: 24px 28px; text-align: center;
+    box-shadow: 0 4px 16px rgba(50,200,160,0.15);
+  }
+  .padlet-cta h3 { font-family: "Apple SD Gothic Neo", "Malgun Gothic", "맑은 고딕", sans-serif; font-size: 18px; color: var(--navy); margin-bottom: 8px; }
+  .padlet-cta p { font-size: 14px; color: var(--gray); margin-bottom: 18px; line-height: 1.6; }
+  .btn-padlet {
+    display: inline-flex; align-items: center; gap: 10px;
+    background: var(--navy); color: #fff;
+    font-family: "Apple SD Gothic Neo", "Malgun Gothic", "맑은 고딕", sans-serif; font-size: 16px;
+    padding: 13px 32px; border-radius: 40px; text-decoration: none;
+    transition: transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 4px 14px rgba(11,46,63,0.35);
+  }
+  .btn-padlet:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(11,46,63,0.45); }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="hero-bar"></div>
+  <div class="progress-bar"><div class="progress-fill"></div></div>
+  <div class="hero-inner">
+    <div class="card-badge">🌡️ 카드 B · 에너지 뉴스 큐레이터</div>
+    <h1>에너지가<br><span>기후를 바꾸고 있다</span></h1>
+    <p class="hero-sub">화석 연료를 태울 때마다 지구는 조금씩 더 뜨거워집니다.<br>그리고 그 결과는 이미 우리 곁에 와 있습니다.</p>
+    <div class="time-badge">⏱ 학습 시간: 약 5분</div>
+  </div>
+</div>
+
+<div class="content">
+
+  <!-- 지구 온도 -->
+  <div class="section">
+    <div class="section-title">
+      <div class="icon">🌡️</div>
+      지구 온도, 얼마나 올랐을까?
+    </div>
+    <div class="temp-visual">
+      <h3>산업화 이후 지구 평균 기온 상승 (예시)</h3>
+      <div class="temp-row">
+        <div class="temp-label">1850년대</div>
+        <div class="temp-bar-wrap"><div class="temp-bar tb-1850"><span>기준점</span></div></div>
+      </div>
+      <div class="temp-row">
+        <div class="temp-label">1970년대</div>
+        <div class="temp-bar-wrap"><div class="temp-bar tb-1970"><span>+0.2°C</span></div></div>
+      </div>
+      <div class="temp-row">
+        <div class="temp-label">2000년대</div>
+        <div class="temp-bar-wrap"><div class="temp-bar tb-2000"><span>+0.7°C</span></div></div>
+      </div>
+      <div class="temp-row">
+        <div class="temp-label">2024년</div>
+        <div class="temp-bar-wrap"><div class="temp-bar tb-2024"><span>+1.5°C 초과 🚨</span></div></div>
+      </div>
+    </div>
+    <p class="body-text">
+      <strong>2024년은 관측 역사상 가장 더운 해</strong>로 기록되었습니다.
+      과학자들은 지구 온도 상승을 1.5°C 이내로 유지해야 한다고 경고하는데,
+      2024년 이미 그 임계점을 넘어섰습니다.
+    </p>
+  </div>
+
+  <!-- 어떻게? -->
+  <div class="section">
+    <div class="section-title">
+      <div class="icon">🔄</div>
+      에너지와 기후위기, 어떻게 연결될까?
+    </div>
+    <div class="mechanism">
+      <div class="mech-step">
+        <div class="mech-num">1</div>
+        <div class="mech-text">석유·석탄을 태워 <strong>전기와 열</strong>을 만든다</div>
+      </div>
+      <div class="mech-step">
+        <div class="mech-num">2</div>
+        <div class="mech-text">연소 과정에서 <strong>이산화탄소(CO₂)</strong>가 발생한다</div>
+      </div>
+      <div class="mech-step">
+        <div class="mech-num">3</div>
+        <div class="mech-text">CO₂가 대기 중에 쌓이며 <strong>온실효과</strong>를 강화시킨다</div>
+      </div>
+      <div class="mech-step">
+        <div class="mech-num">4</div>
+        <div class="mech-text">지구 평균 기온이 오르며 <strong>기후 패턴</strong>이 바뀐다</div>
+      </div>
+      <div class="mech-step">
+        <div class="mech-num">5</div>
+        <div class="mech-text">폭염, 홍수, 태풍 등 <strong>극단적 기상 현상</strong>이 빈번해진다</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 실제 사례 -->
+  <div class="section">
+    <div class="section-title">
+      <div class="icon">📰</div>
+      실제로 무슨 일이 일어나고 있나?
+    </div>
+    <div class="event-grid">
+      <div class="event-card">
+        <div class="ev-icon">🔥</div>
+        <div class="ev-title">유럽 폭염 (2022~2024)</div>
+        <div class="ev-body">프랑스·스페인·포르투갈에서 50°C 가까운 이상 고온. 산불 수천 건 발생, 수백 명 사망</div>
+      </div>
+      <div class="event-card">
+        <div class="ev-icon">🌊</div>
+        <div class="ev-title">아시아 홍수 (2024)</div>
+        <div class="ev-body">인도, 방글라데시, 파키스탄에서 기록적 폭우. 수백만 명 이재민 발생</div>
+      </div>
+      <div class="event-card">
+        <div class="ev-icon">🌀</div>
+        <div class="ev-title">슈퍼 태풍 빈번화</div>
+        <div class="ev-body">태풍이 더 강해지고 더 빠르게 강해지는 현상. 한반도에도 영향 증가</div>
+      </div>
+      <div class="event-card">
+        <div class="ev-icon">🏔️</div>
+        <div class="ev-title">빙하 소멸</div>
+        <div class="ev-body">히말라야·알프스 빙하 급속 감소. 수억 명의 식수·농업용수 위협</div>
+      </div>
+    </div>
+    <div class="highlight">
+      <p>💡 <strong>한국도 예외가 아닙니다.</strong> 2024년 한국은 역대 최장 폭염 기록을 갱신했고, 여름철 강수 패턴도 급격히 변화하고 있습니다. 제주도의 아열대성 식물 서식지가 계속 북상하고 있습니다.</p>
+    </div>
+  </div>
+
+  <!-- 에너지가 핵심 -->
+  <div class="section">
+    <div class="section-title">
+      <div class="icon">⚡</div>
+      에너지 전환이 왜 핵심 해결책인가?
+    </div>
+    <p class="body-text">
+      기후위기의 주원인은 화석 연료 사용입니다. 그렇다면 해결책은 명확합니다.
+      <strong>화석 연료를 태우지 않는 에너지로 전환</strong>하는 것입니다.
+    </p>
+    <div class="highlight" style="margin-top:16px;">
+      <p>✅ <strong>덴마크</strong>: 전력의 60% 이상을 풍력으로 생산, CO₂ 배출 대폭 감소</p>
+      <p style="margin-top:8px;">✅ <strong>독일</strong>: 태양광·풍력으로 전체 전력 수요를 100% 충당한 날 기록</p>
+      <p style="margin-top:8px;">✅ <strong>한국</strong>: 2030년까지 재생에너지 비중을 30%로 확대 계획</p>
+    </div>
+  </div>
+
+  <!-- 질문 -->
+  <div class="question-section">
+    <h2>💬 핵심 질문에 답해보세요</h2>
+    <div class="question-item">
+      <div class="q-num">질문 1</div>
+      <div class="q-text">화석 연료를 태우는 것이 기후위기로 이어지는 과정을 순서대로 설명해보세요.</div>
+      <div class="q-hint">힌트: 연소 → CO₂ → 온실효과 → 기온 상승 → 기상 이변</div>
+    </div>
+    <div class="question-item">
+      <div class="q-num">질문 2</div>
+      <div class="q-text">2024년 기후위기로 인해 실제로 발생한 사건을 한 가지 골라 그 피해를 설명해보세요.</div>
+      <div class="q-hint">힌트: 폭염, 홍수, 태풍, 빙하 중 하나를 선택</div>
+    </div>
+    <div class="question-item">
+      <div class="q-num">질문 3 — 카드 B 브리핑 핵심</div>
+      <div class="q-text">카드 B를 읽지 못한 친구들에게 30초 안에 핵심을 전달한다면, 어떤 말을 할 건가요?</div>
+      <div class="q-hint">기후위기의 원인과 에너지의 관계를 포함해서 설명해보세요</div>
+    </div>
+  </div>
+
+  <div class="padlet-cta">
+    <h3>📌 이제 패들렛으로 돌아가세요</h3>
+    <p>학습한 내용을 바탕으로<br><strong>카드 B 담당 칸</strong>에 질문 3의 답변을 작성해주세요.<br>다른 모둠의 카드 내용도 함께 살펴보세요!</p>
+    <a href="PADLET_URL_HERE" class="btn-padlet">
+      패들렛으로 답변 작성하기 <span>→</span>
+    </a>
+  </div>
+
+</div>
+</body>
+</html>

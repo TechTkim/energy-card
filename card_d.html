@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>카드 D — 친환경 에너지의 부상</title>
+
+<style>
+/* 전역 폰트 override */
+*, *::before, *::after {
+  font-family: "Apple SD Gothic Neo", "Malgun Gothic", "맑은 고딕", "Noto Sans CJK KR", sans-serif !important;
+}
+.section-title, .card-badge, .hero h1, .hero h2, .stat-num, .big-num, .country-stat, .korea-target .kt-num, .q-num, .q-text, .padlet-cta h3, .btn-padlet, .question-section h2, .flow-step .fs-num, .card-title, .go-btn {
+  font-weight: 800 !important;
+  letter-spacing: -0.3px;
+}
+
+  :root {
+    --green:   #1E8449;
+    --green-lt:#27AE60;
+    --green-bg:#EAFAF1;
+    --navy:    #0B2E3F;
+    --teal:    #0D7377;
+    --mint:    #32C8A0;
+    --gold:    #F5A623;
+    --dark:    #1A2F35;
+    --gray:    #6B7280;
+    --white:   #FFFFFF;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: "Apple SD Gothic Neo", "Malgun Gothic", "맑은 고딕", sans-serif; background: #F8FAFB; color: var(--dark); min-height: 100vh; }
+
+  .hero { background: var(--navy); position: relative; overflow: hidden; }
+  .hero::before {
+    content: ''; position: absolute; inset: 0;
+    background: radial-gradient(ellipse at 70% 40%, rgba(30,132,73,0.3) 0%, transparent 65%);
+  }
+  .hero-bar { height: 6px; background: var(--green-lt); }
+  .progress-bar { height: 4px; background: rgba(255,255,255,0.15); }
+  .progress-fill { height: 100%; background: var(--green-lt); width: 100%; }
+  .hero-inner { max-width: 800px; margin: 0 auto; padding: 40px 24px 36px; position: relative; z-index: 1; }
+  .card-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--green); color: #fff;
+    font-family: "Apple SD Gothic Neo", "Malgun Gothic", "맑은 고딕", sans-serif; font-size: 13px;
+    padding: 4px 14px; border-radius: 20px; margin-bottom: 16px;
+  }
+  .hero h1 { font-family: "Apple SD Gothic Neo", "Malgun Gothic", "맑은 고딕", sans-serif; font-size: clamp(28px, 5vw, 44px); color: #fff; line-height: 1.2; margin-bottom: 12px; }
+  .hero h1 span { color: var(--mint); }
+  .hero-sub { color: rgba(255,255,255,0.65); font-size: 14px; line-height: 1.6; }
+  .time-badge {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2);
+    color: rgba(255,255,255,0.8); font-size: 12px; padding: 5px 12px;
+    border-radius: 20px; margin-top: 14px;
+  }
+
+  .content { max-width: 800px; margin: 0 auto; padding: 32px 24px 60px; }
+
+  .section {
+    background: var(--white); border-radius: 16px; padding: 28px;
+    margin-bottom: 20px; box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    border-left: 5px solid var(--green-lt);
+  }
+  .section-title {
+    font-family: "Apple SD Gothic Neo", "Malgun Gothic", "맑은 고딕", sans-serif; font-size: 18px; color: var(--green);
+    margin-bottom: 16px; display: flex; align-items: center; gap: 8px;
+  }
+  .section-title .icon {
+    width: 32px; height: 32px; background: var(--green-bg);
+    border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 16px;
+  }
+  .body-text { font-size: 15px; line-height: 1.85; color: #374151; }
+  .body-text strong { color: var(--green); font-weight: 700; }
+
+  /* country cards */
+  .country-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; margin: 18px 0; }
+  @media(max-width:580px){ .country-grid { grid-template-columns: 1fr; } }
+  .country-card {
+    background: linear-gradient(135deg, var(--navy) 0%, #0D3D56 100%);
+    border-radius: 12px; padding: 18px 16px;
+    border-top: 4px solid var(--green-lt);
+  }
+  .country-flag { font-size: 28px; margin-bottom: 8px; }
+  .country-name { font-family: "Apple SD Gothic Neo", "Malgun Gothic", "맑은 고딕", sans-serif; font-size: 15px; color: var(--mint); margin-bottom: 6px; }
+  .country-stat { font-family: "Apple SD Gothic Neo", "Malgun Gothic", "맑은 고딕", sans-serif; font-size: 22px; color: var(--gold); margin-bottom: 4px; }
+  .country-desc { font-size: 12px; color: rgba(255,255,255,0.65); line-height: 1.6; }
+
+  /* energy type cards */
+  .energy-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin: 18px 0; }
+  @media(max-width:500px){ .energy-grid { grid-template-columns: 1fr; } }
+  .energy-card {
+    background: var(--green-bg); border-radius: 12px; padding: 16px;
+    border-left: 4px solid var(--green-lt);
+    transition: transform 0.2s;
+  }
+  .energy-card:hover { transform: translateY(-2px); }
+  .energy-icon { font-size: 24px; margin-bottom: 8px; }
+  .energy-name { font-family: "Apple SD Gothic Neo", "Malgun Gothic", "맑은 고딕", sans-serif; font-size: 15px; color: var(--green); margin-bottom: 4px; }
+  .energy-desc { font-size: 12px; color: #4B5563; line-height: 1.6; }
+  .energy-book { font-size: 11px; color: var(--gray); margin-top: 6px; }
+
+  /* challenge box */
+  .challenge-box {
+    background: linear-gradient(135deg, #F39C12 0%, #D68910 100%);
+    border-radius: 14px; padding: 20px 22px; margin: 16px 0; color: #fff;
+  }
+  .challenge-box h3 { font-family: "Apple SD Gothic Neo", "Malgun Gothic", "맑은 고딕", sans-serif; font-size: 15px; margin-bottom: 12px; }
+  .challenge-item { display: flex; gap: 10px; margin-bottom: 8px; align-items: flex-start; }
+  .challenge-item:last-child { margin-bottom: 0; }
+  .challenge-item .ci-icon { font-size: 16px; flex-shrink: 0; }
+  .challenge-item p { font-size: 13px; line-height: 1.6; }
+
+  .highlight {
+    background: var(--green-bg); border: 1.5px solid rgba(30,132,73,0.2);
+    border-radius: 12px; padding: 18px 20px; margin: 16px 0;
+  }
+  .highlight p { font-size: 14px; line-height: 1.8; }
+
+  /* korea target */
+  .korea-target {
+    background: linear-gradient(135deg, var(--teal) 0%, var(--green) 100%);
+    border-radius: 14px; padding: 22px; margin: 18px 0; color: #fff;
+    text-align: center;
+  }
+  .korea-target .kt-label { font-size: 13px; color: rgba(255,255,255,0.7); margin-bottom: 4px; }
+  .korea-target .kt-num { font-family: "Apple SD Gothic Neo", "Malgun Gothic", "맑은 고딕", sans-serif; font-size: 52px; color: #fff; line-height: 1; }
+  .korea-target .kt-unit { font-family: "Apple SD Gothic Neo", "Malgun Gothic", "맑은 고딕", sans-serif; font-size: 22px; color: var(--mint); }
+  .korea-target .kt-desc { font-size: 13px; color: rgba(255,255,255,0.75); margin-top: 8px; line-height: 1.6; }
+
+  .question-section {
+    background: linear-gradient(135deg, var(--green) 0%, #145A32 100%);
+    border-radius: 16px; padding: 28px; margin-bottom: 20px;
+    box-shadow: 0 4px 20px rgba(30,132,73,0.3);
+  }
+  .question-section h2 { font-family: "Apple SD Gothic Neo", "Malgun Gothic", "맑은 고딕", sans-serif; font-size: 20px; color: #fff; margin-bottom: 20px; }
+  .question-item {
+    background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 12px; padding: 18px 20px; margin-bottom: 12px;
+  }
+  .question-item:last-child { margin-bottom: 0; }
+  .q-num { font-family: "Apple SD Gothic Neo", "Malgun Gothic", "맑은 고딕", sans-serif; font-size: 13px; color: var(--gold); margin-bottom: 6px; }
+  .q-text { font-size: 15px; color: #fff; line-height: 1.6; font-weight: 500; }
+  .q-hint { font-size: 12px; color: rgba(255,255,255,0.6); margin-top: 6px; font-style: italic; }
+
+  .padlet-cta {
+    background: var(--white); border: 2px solid var(--mint); border-radius: 16px;
+    padding: 24px 28px; text-align: center; box-shadow: 0 4px 16px rgba(50,200,160,0.15);
+  }
+  .padlet-cta h3 { font-family: "Apple SD Gothic Neo", "Malgun Gothic", "맑은 고딕", sans-serif; font-size: 18px; color: var(--navy); margin-bottom: 8px; }
+  .padlet-cta p { font-size: 14px; color: var(--gray); margin-bottom: 18px; line-height: 1.6; }
+  .btn-padlet {
+    display: inline-flex; align-items: center; gap: 10px;
+    background: var(--navy); color: #fff; font-family: "Apple SD Gothic Neo", "Malgun Gothic", "맑은 고딕", sans-serif; font-size: 16px;
+    padding: 13px 32px; border-radius: 40px; text-decoration: none;
+    transition: transform 0.2s, box-shadow 0.2s; box-shadow: 0 4px 14px rgba(11,46,63,0.35);
+  }
+  .btn-padlet:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(11,46,63,0.45); }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="hero-bar"></div>
+  <div class="progress-bar"><div class="progress-fill"></div></div>
+  <div class="hero-inner">
+    <div class="card-badge">🌱 카드 D · 에너지 뉴스 큐레이터</div>
+    <h1>친환경 에너지가<br><span>떠오르고 있다</span></h1>
+    <p class="hero-sub">화석 연료 없이도 전기를 만들 수 있습니다.<br>세계 여러 나라가 이미 그 증거를 보여주고 있습니다.</p>
+    <div class="time-badge">⏱ 학습 시간: 약 5분</div>
+  </div>
+</div>
+
+<div class="content">
+
+  <!-- 세계 사례 -->
+  <div class="section">
+    <div class="section-title"><div class="icon">🌍</div>세계는 이미 바뀌고 있다</div>
+    <p class="body-text" style="margin-bottom:18px;">
+      친환경 에너지는 먼 미래의 이야기가 아닙니다.
+      <strong>지금 이 순간</strong> 세계 여러 나라에서 실제로 사용되고 있습니다.
+    </p>
+    <div class="country-grid">
+      <div class="country-card">
+        <div class="country-flag">🇩🇰</div>
+        <div class="country-name">덴마크</div>
+        <div class="country-stat">60%+</div>
+        <div class="country-desc">전체 전력의 60% 이상을 풍력으로 생산. 2030년까지 100% 목표</div>
+      </div>
+      <div class="country-card">
+        <div class="country-flag">🇩🇪</div>
+        <div class="country-name">독일</div>
+        <div class="country-stat">100%</div>
+        <div class="country-desc">태양광·풍력으로 전력 수요를 100% 충당한 날 기록 (2024년 여름)</div>
+      </div>
+      <div class="country-card">
+        <div class="country-flag">🇮🇸</div>
+        <div class="country-name">아이슬란드</div>
+        <div class="country-stat">99%</div>
+        <div class="country-desc">지열·수력으로 전체 전력의 99% 공급. 탄소 배출 거의 없음</div>
+      </div>
+    </div>
+    <div class="highlight">
+      <p>💡 이 나라들이 특별한 기술을 가진 게 아닙니다. <strong>정책 결정과 투자</strong>의 차이입니다. 한국도 충분히 할 수 있습니다.</p>
+    </div>
+  </div>
+
+  <!-- 에너지 종류 -->
+  <div class="section">
+    <div class="section-title"><div class="icon">⚡</div>어떤 친환경 에너지가 있나?</div>
+    <p class="body-text" style="margin-bottom:16px;">
+      친환경 에너지는 <strong>재생에너지</strong>와 <strong>신에너지</strong>로 나뉩니다.
+      각각 다른 원리로 작동하며, 지역과 환경에 따라 적합한 종류가 다릅니다.
+    </p>
+    <div class="energy-grid">
+      <div class="energy-card">
+        <div class="energy-icon">☀️</div>
+        <div class="energy-name">태양광 에너지</div>
+        <div class="energy-desc">태양 전지(솔라셀)가 빛을 바로 전기로 변환. 지붕, 들판 어디든 설치 가능</div>
+        <div class="energy-book">📖 교과서 221p</div>
+      </div>
+      <div class="energy-card">
+        <div class="energy-icon">💨</div>
+        <div class="energy-name">풍력 에너지</div>
+        <div class="energy-desc">바람이 날개를 돌려 발전기 작동. 해상 풍력은 육지보다 바람이 강해 효율 높음</div>
+        <div class="energy-book">📖 교과서 220p</div>
+      </div>
+      <div class="energy-card">
+        <div class="energy-icon">🌊</div>
+        <div class="energy-name">해양(파력) 에너지</div>
+        <div class="energy-desc">파도의 상하 운동으로 전기 생산. 서해안·남해안이 많은 한국에 적합</div>
+        <div class="energy-book">📖 교과서 220p</div>
+      </div>
+      <div class="energy-card">
+        <div class="energy-icon">⚗️</div>
+        <div class="energy-name">수소 에너지</div>
+        <div class="energy-desc">수소와 산소를 반응시켜 전기 생산. 오염물질이 물뿐. 자동차·항공기에도 활용</div>
+        <div class="energy-book">📖 교과서 222p</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 한국 목표 -->
+  <div class="section">
+    <div class="section-title"><div class="icon">🇰🇷</div>한국의 에너지 전환 목표</div>
+    <div class="korea-target">
+      <div class="kt-label">2030년 재생에너지 발전 비중 목표</div>
+      <div><span class="kt-num">30</span><span class="kt-unit">%</span></div>
+      <div class="kt-desc">2023년 현재 약 9% 수준 → 약 3배 이상 늘려야 하는 도전적인 목표</div>
+    </div>
+    <p class="body-text">
+      한국은 <strong>삼면이 바다</strong>로 둘러싸여 있어 해상 풍력과 파력 발전에 유리한 조건을 갖추고 있습니다.
+      또한 일조량도 풍부해 태양광 발전 가능성도 큽니다.
+      기술력도 세계적 수준으로, 삼성·LG·현대 등이 태양광·수소 분야에 대규모 투자 중입니다.
+    </p>
+    <div class="challenge-box" style="margin-top:16px;">
+      <h3>⚠️ 하지만 과제도 있습니다</h3>
+      <div class="challenge-item">
+        <div class="ci-icon">🌤️</div>
+        <p>태양광·풍력은 날씨에 따라 발전량이 불규칙 → 에너지 저장 기술이 함께 필요</p>
+      </div>
+      <div class="challenge-item">
+        <div class="ci-icon">💰</div>
+        <p>초기 설치 비용이 높음 → 하지만 장기적으로는 연료비가 들지 않아 경제적</p>
+      </div>
+      <div class="challenge-item">
+        <div class="ci-icon">🏗️</div>
+        <p>대규모 설치 시 토지 이용, 소음, 경관 문제 발생 가능 → 사회적 합의 필요</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 질문 -->
+  <div class="question-section">
+    <h2>💬 핵심 질문에 답해보세요</h2>
+    <div class="question-item">
+      <div class="q-num">질문 1</div>
+      <div class="q-text">덴마크나 독일의 사례가 우리나라에 주는 시사점은 무엇인지 설명해보세요.</div>
+      <div class="q-hint">힌트: 기술력, 정책, 투자의 관점에서 생각해보세요</div>
+    </div>
+    <div class="question-item">
+      <div class="q-num">질문 2</div>
+      <div class="q-text">친환경 에너지의 종류 중 하나를 골라 그 원리와 한계점을 함께 설명해보세요.</div>
+      <div class="q-hint">힌트: 장점만 말하지 말고, 아직 해결해야 할 문제도 함께 이야기하세요</div>
+    </div>
+    <div class="question-item">
+      <div class="q-num">질문 3 — 카드 D 브리핑 핵심</div>
+      <div class="q-text">카드 D를 읽지 못한 친구들에게 30초 안에 핵심을 전달한다면, 어떤 말을 할 건가요?</div>
+      <div class="q-hint">국가 사례와 구체적인 숫자를 포함해서 설명해보세요</div>
+    </div>
+  </div>
+
+  <div class="padlet-cta">
+    <h3>📌 이제 패들렛으로 돌아가세요</h3>
+    <p>학습한 내용을 바탕으로<br><strong>카드 D 담당 칸</strong>에 질문 3의 답변을 작성해주세요.<br>다른 모둠의 카드 내용도 함께 살펴보세요!</p>
+    <a href="PADLET_URL_HERE" class="btn-padlet">패들렛으로 답변 작성하기 →</a>
+  </div>
+
+</div>
+</body>
+</html>
