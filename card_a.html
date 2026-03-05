@@ -159,12 +159,12 @@
   .korea-box ul { list-style: none; padding: 0; }
   .korea-box li {
     font-size: 14px; line-height: 1.7;
-    padding: 6px 0;
+    padding: 6px 0 6px 18px;
     border-bottom: 1px solid rgba(255,255,255,0.08);
-    display: flex; gap: 10px; align-items: flex-start;
+    position: relative;
   }
   .korea-box li:last-child { border-bottom: none; }
-  .korea-box li::before { content: '→'; color: var(--mint); flex-shrink: 0; }
+  .korea-box li::before { content: '→'; color: var(--mint); position: absolute; left: 0; }
 
   /* question section */
   .question-section {
@@ -351,7 +351,7 @@
   <div class="padlet-cta">
     <h3>📌 이제 패들렛으로 돌아가세요</h3>
     <p>학습한 내용을 바탕으로<br><strong>카드 A 담당 칸</strong>에 질문 3의 답변을 작성해주세요.<br>다른 모둠의 카드 내용도 함께 살펴보세요!</p>
-    <a href="https://padlet.com/pad4_135_1/energy201" class="btn-padlet">
+    <a href="PADLET_URL_HERE" class="btn-padlet">
       패들렛으로 답변 작성하기 <span class="arrow">→</span>
     </a>
   </div>
