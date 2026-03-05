@@ -346,7 +346,7 @@ const PADLET_URLS = {
 const params = new URLSearchParams(window.location.search);
 const classNum = parseInt(params.get("class"));
 const btn = document.getElementById("padletBtn");
-if (classNum >= 1 && classNum <= 8 && PADLET_URLS[classNum]) {
+if (classNum >= 1 && classNum <= 8) {
   btn.href = PADLET_URLS[classNum];
 } else {
   btn.style.opacity = "0.4";

@@ -159,12 +159,12 @@
   .korea-box ul { list-style: none; padding: 0; }
   .korea-box li {
     font-size: 14px; line-height: 1.7;
-    padding: 6px 0;
+    padding: 6px 0 6px 18px;
     border-bottom: 1px solid rgba(255,255,255,0.08);
-    display: flex; gap: 10px; align-items: flex-start;
+    position: relative;
   }
   .korea-box li:last-child { border-bottom: none; }
-  .korea-box li::before { content: '→'; color: var(--mint); flex-shrink: 0; }
+  .korea-box li::before { content: '→'; color: var(--mint); position: absolute; left: 0; }
 
   /* question section */
   .question-section {
@@ -372,7 +372,7 @@ const PADLET_URLS = {
 const params = new URLSearchParams(window.location.search);
 const classNum = parseInt(params.get("class"));
 const btn = document.getElementById("padletBtn");
-if (classNum >= 1 && classNum <= 8 && PADLET_URLS[classNum]) {
+if (classNum >= 1 && classNum <= 8) {
   btn.href = PADLET_URLS[classNum];
 } else {
   btn.style.opacity = "0.4";
