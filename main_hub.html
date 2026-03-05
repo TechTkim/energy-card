@@ -5,14 +5,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>에너지 뉴스 큐레이터 — 학습 허브</title>
 <style>
-/* ── 폰트: 외부 로드 없이 시스템 한글 폰트 사용 ── */
 * {
   box-sizing: border-box;
   margin: 0; padding: 0;
   font-family: "Apple SD Gothic Neo", "Malgun Gothic", "맑은 고딕",
                "Noto Sans KR", "나눔고딕", sans-serif;
 }
-
 :root {
   --navy:  #0B2E3F;
   --teal:  #0D7377;
@@ -21,37 +19,22 @@
   --dark:  #1A2F35;
   --gray:  #6B7280;
   --white: #FFFFFF;
-  --CA: #C0392B;
-  --CB: #1A5276;
-  --CC: #7D3C98;
-  --CD: #1E8449;
 }
-
-body {
-  background: #F0F4F8;
-  color: var(--dark);
-  min-height: 100vh;
-}
+body { background: #F0F4F8; color: var(--dark); min-height: 100vh; }
 
 /* ── HERO ── */
 .hero {
   background: var(--navy);
-  position: relative;
-  overflow: hidden;
-  padding-bottom: 50px;
+  position: relative; overflow: hidden; padding-bottom: 50px;
 }
 .hero::before {
-  content: '';
-  position: absolute; inset: 0;
+  content: ''; position: absolute; inset: 0; pointer-events: none;
   background: radial-gradient(ellipse at 10% 80%, rgba(13,115,119,0.45) 0%, transparent 55%),
               radial-gradient(ellipse at 90% 20%, rgba(50,200,160,0.15) 0%, transparent 50%);
-  pointer-events: none;
 }
 .hero::after {
-  content: '';
-  position: absolute; bottom: -1px; left: 0; right: 0; height: 50px;
-  background: #F0F4F8;
-  clip-path: ellipse(55% 100% at 50% 100%);
+  content: ''; position: absolute; bottom: -1px; left: 0; right: 0; height: 50px;
+  background: #F0F4F8; clip-path: ellipse(55% 100% at 50% 100%);
 }
 .rainbow-bar {
   height: 6px;
@@ -59,114 +42,104 @@ body {
 }
 .hero-inner {
   max-width: 860px; margin: 0 auto;
-  padding: 40px 24px 16px;
-  position: relative; z-index: 1;
+  padding: 40px 24px 16px; position: relative; z-index: 1;
 }
 .subject-tag {
   display: inline-block;
-  background: rgba(255,255,255,0.12);
-  border: 1px solid rgba(255,255,255,0.22);
-  color: rgba(255,255,255,0.85);
-  font-size: 13px; font-weight: 600;
-  padding: 5px 14px; border-radius: 20px;
-  margin-bottom: 18px;
+  background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.22);
+  color: rgba(255,255,255,0.85); font-size: 13px; font-weight: 600;
+  padding: 5px 14px; border-radius: 20px; margin-bottom: 14px;
 }
+
+/* 반 배지 */
+.class-badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: var(--mint); color: var(--navy);
+  font-size: 14px; font-weight: 900;
+  padding: 5px 16px; border-radius: 20px;
+  margin-left: 8px; vertical-align: middle;
+  letter-spacing: -0.3px;
+}
+/* URL 없이 접속했을 때 경고 배지 */
+.class-badge.warn {
+  background: #F5A623; color: #fff;
+  font-size: 12px; font-weight: 700;
+  animation: pulse 1.5s infinite;
+}
+@keyframes pulse {
+  0%,100% { opacity:1; } 50% { opacity:0.6; }
+}
+
 .hero h1 {
-  font-size: 42px; font-weight: 900;
-  color: #fff; line-height: 1.2;
-  margin-bottom: 10px;
-  letter-spacing: -0.5px;
+  font-size: 42px; font-weight: 900; color: #fff;
+  line-height: 1.2; margin-bottom: 10px; letter-spacing: -0.5px;
 }
-.hero h1 em {
-  color: var(--mint); font-style: normal;
-}
+.hero h1 em { color: var(--mint); font-style: normal; }
 .hero-desc {
-  color: rgba(255,255,255,0.65);
-  font-size: 15px; line-height: 1.75;
-  max-width: 520px;
+  color: rgba(255,255,255,0.65); font-size: 15px; line-height: 1.75; max-width: 520px;
 }
 .hero-desc strong { color: var(--mint); font-weight: 700; }
 
-/* ── FLOW STEPS ── */
-.flow-wrap {
-  max-width: 860px; margin: 0 auto;
-  padding: 28px 24px 0;
+/* 반 없을때 경고박스 */
+.no-class-box {
+  display: none;
+  background: rgba(245,166,35,0.15); border: 2px solid #F5A623;
+  border-radius: 12px; padding: 14px 18px; margin-top: 16px;
+  color: #fff; font-size: 14px; line-height: 1.7;
 }
+.no-class-box strong { color: #F5A623; }
+
+/* ── FLOW ── */
+.flow-wrap { max-width: 860px; margin: 0 auto; padding: 28px 24px 0; }
 .flow-label {
-  font-size: 13px; font-weight: 700;
-  color: var(--gray); margin-bottom: 12px;
-  text-transform: uppercase; letter-spacing: 0.06em;
+  font-size: 13px; font-weight: 700; color: var(--gray);
+  margin-bottom: 12px; text-transform: uppercase; letter-spacing: 0.06em;
 }
 .flow-row {
-  display: flex; gap: 0;
-  background: var(--white);
+  display: flex; background: var(--white);
   border-radius: 14px; overflow: hidden;
   box-shadow: 0 2px 14px rgba(0,0,0,0.08);
 }
 .flow-step {
   flex: 1; padding: 14px 10px; text-align: center;
-  border-right: 1px solid #E5E7EB;
-  position: relative;
+  border-right: 1px solid #E5E7EB; position: relative;
 }
 .flow-step:last-child { border-right: none; }
 .flow-step::after {
-  content: '›';
-  position: absolute; right: -8px; top: 50%; transform: translateY(-50%);
+  content: '›'; position: absolute; right: -8px; top: 50%; transform: translateY(-50%);
   color: var(--teal); font-size: 20px; font-weight: 900; z-index: 2;
 }
 .flow-step:last-child::after { display: none; }
 .fs-num {
   display: inline-flex; align-items: center; justify-content: center;
-  width: 26px; height: 26px;
-  background: var(--teal); color: #fff;
-  border-radius: 50%; font-size: 13px; font-weight: 700;
-  margin-bottom: 6px;
+  width: 26px; height: 26px; background: var(--teal); color: #fff;
+  border-radius: 50%; font-size: 13px; font-weight: 700; margin-bottom: 6px;
 }
 .fs-txt { font-size: 11.5px; line-height: 1.5; color: #374151; font-weight: 500; }
 
 /* ── NOTICE ── */
-.notice-wrap {
-  max-width: 860px; margin: 22px auto 0;
-  padding: 0 24px;
-}
+.notice-wrap { max-width: 860px; margin: 22px auto 0; padding: 0 24px; }
 .notice-box {
-  background: var(--white);
-  border-left: 5px solid var(--teal);
-  border-radius: 12px; padding: 16px 20px;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+  background: var(--white); border-left: 5px solid var(--teal);
+  border-radius: 12px; padding: 16px 20px; box-shadow: 0 2px 10px rgba(0,0,0,0.06);
 }
-.notice-box h3 {
-  font-size: 14px; font-weight: 700;
-  color: var(--teal); margin-bottom: 8px;
-}
+.notice-box h3 { font-size: 14px; font-weight: 700; color: var(--teal); margin-bottom: 8px; }
 .notice-box ul { list-style: none; }
-.notice-box li {
-  font-size: 13px; line-height: 1.7;
-  padding: 3px 0; display: flex; gap: 8px;
-}
+.notice-box li { font-size: 13px; line-height: 1.7; padding: 3px 0; display: flex; gap: 8px; }
 .notice-box li::before { content: '→'; color: var(--mint); font-weight: 700; flex-shrink: 0; }
 
 /* ── CARDS ── */
-.cards-wrap {
-  max-width: 860px; margin: 28px auto 60px;
-  padding: 0 24px;
-}
+.cards-wrap { max-width: 860px; margin: 28px auto 60px; padding: 0 24px; }
 .cards-label {
-  font-size: 16px; font-weight: 700;
-  color: var(--navy); margin-bottom: 18px;
-  display: flex; align-items: center; gap: 8px;
+  font-size: 16px; font-weight: 700; color: var(--navy);
+  margin-bottom: 18px; display: flex; align-items: center; gap: 8px;
 }
 .cards-label .dot {
   display: inline-flex; align-items: center; justify-content: center;
-  width: 26px; height: 26px;
-  background: var(--teal); color: #fff;
+  width: 26px; height: 26px; background: var(--teal); color: #fff;
   border-radius: 50%; font-size: 14px;
 }
-.card-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 18px;
-}
+.card-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
 @media (max-width: 600px) {
   .card-grid { grid-template-columns: 1fr; }
   .hero h1 { font-size: 30px; }
@@ -174,84 +147,70 @@ body {
   .flow-row { flex-wrap: wrap; }
   .flow-step { flex: 0 0 50%; border-bottom: 1px solid #E5E7EB; }
 }
-
-/* 공통 카드 */
 .card-link {
-  display: block; text-decoration: none;
-  border-radius: 18px; overflow: hidden;
+  display: block; text-decoration: none; border-radius: 18px; overflow: hidden;
   box-shadow: 0 4px 18px rgba(0,0,0,0.10);
   transition: transform 0.2s, box-shadow 0.2s;
 }
-.card-link:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 10px 30px rgba(0,0,0,0.16);
-}
+.card-link:hover { transform: translateY(-5px); box-shadow: 0 10px 30px rgba(0,0,0,0.16); }
 .card-header { padding: 22px 22px 16px; position: relative; }
 .card-code {
   position: absolute; right: 16px; top: 12px;
-  font-size: 48px; font-weight: 900;
-  color: rgba(255,255,255,0.18); line-height: 1;
-  user-select: none;
+  font-size: 48px; font-weight: 900; color: rgba(255,255,255,0.18); line-height: 1;
 }
 .card-emoji { font-size: 28px; margin-bottom: 8px; display: block; }
 .card-badge {
-  display: inline-block;
-  background: rgba(255,255,255,0.18);
-  border: 1px solid rgba(255,255,255,0.28);
-  color: rgba(255,255,255,0.9);
-  font-size: 11px; font-weight: 600;
-  padding: 3px 10px; border-radius: 10px;
-  margin-bottom: 8px;
+  display: inline-block; background: rgba(255,255,255,0.18);
+  border: 1px solid rgba(255,255,255,0.28); color: rgba(255,255,255,0.9);
+  font-size: 11px; font-weight: 600; padding: 3px 10px; border-radius: 10px; margin-bottom: 8px;
 }
-.card-title {
-  font-size: 21px; font-weight: 900;
-  color: #fff; line-height: 1.25;
-}
-.card-sub {
-  font-size: 12px; color: rgba(255,255,255,0.65);
-  margin-top: 4px;
-}
-.card-body {
-  background: var(--white);
-  padding: 16px 20px;
-}
+.card-title { font-size: 21px; font-weight: 900; color: #fff; line-height: 1.25; }
+.card-sub { font-size: 12px; color: rgba(255,255,255,0.65); margin-top: 4px; }
+.card-body { background: var(--white); padding: 16px 20px; }
 .card-q {
   font-size: 13px; color: #374151; line-height: 1.65;
-  padding-left: 10px;
-  margin-bottom: 12px;
-  border-left: 3px solid;
+  padding-left: 10px; margin-bottom: 12px; border-left: 3px solid;
 }
 .kw-row { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 14px; }
-.kw {
-  font-size: 11px; font-weight: 700;
-  padding: 3px 10px; border-radius: 10px;
-  letter-spacing: 0.02em;
-}
+.kw { font-size: 11px; font-weight: 700; padding: 3px 10px; border-radius: 10px; }
 .go-btn {
   display: flex; align-items: center; justify-content: space-between;
-  padding: 11px 16px; border-radius: 10px;
-  font-size: 14px; font-weight: 700; color: #fff;
+  padding: 11px 16px; border-radius: 10px; font-size: 14px; font-weight: 700; color: #fff;
 }
 
-/* Card A */
+/* 패들렛 바로가기 버튼 */
+.padlet-bar {
+  max-width: 860px; margin: 0 auto 0; padding: 0 24px;
+}
+.padlet-btn {
+  display: flex; align-items: center; justify-content: space-between;
+  background: var(--teal); color: #fff;
+  border-radius: 14px; padding: 16px 22px;
+  text-decoration: none; font-size: 15px; font-weight: 700;
+  box-shadow: 0 4px 16px rgba(13,115,119,0.3);
+  transition: transform 0.2s, box-shadow 0.2s;
+  margin-bottom: 20px;
+}
+.padlet-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 22px rgba(13,115,119,0.4); }
+.padlet-btn .pb-left { display: flex; align-items: center; gap: 10px; }
+.padlet-btn .pb-icon { font-size: 22px; }
+.padlet-btn .pb-text { line-height: 1.4; }
+.padlet-btn .pb-sub { font-size: 12px; color: rgba(255,255,255,0.75); font-weight: 400; }
+.padlet-btn .pb-arrow { font-size: 22px; }
+
+/* Card colors */
 .ca .card-header { background: linear-gradient(135deg, #C0392B 0%, #922B21 100%); }
 .ca .card-q      { border-left-color: #C0392B; }
 .ca .kw          { background: #FDEDEC; color: #C0392B; }
 .ca .go-btn      { background: #C0392B; }
-
-/* Card B */
 .cb .card-header { background: linear-gradient(135deg, #1A5276 0%, #0E3460 100%); }
 .cb .card-q      { border-left-color: #1A5276; }
 .cb .kw          { background: #EBF5FB; color: #1A5276; }
 .cb .go-btn      { background: #1A5276; }
-
-/* Card C */
 .cc .card-header { background: linear-gradient(135deg, #7D3C98 0%, #6C3483 100%); }
 .cc .card-q      { border-left-color: #7D3C98; }
 .cc .kw          { background: #F5EEF8; color: #7D3C98; }
 .cc .go-btn      { background: #7D3C98; }
-
-/* Card D */
 .cd .card-header { background: linear-gradient(135deg, #1E8449 0%, #145A32 100%); }
 .cd .card-q      { border-left-color: #1E8449; }
 .cd .kw          { background: #EAFAF1; color: #1E8449; }
@@ -260,43 +219,48 @@ body {
 </head>
 <body>
 
-<!-- HERO -->
 <div class="hero">
   <div class="rainbow-bar"></div>
   <div class="hero-inner">
     <div class="subject-tag">⚡ 기술 · 2학년 · 2차시 활동</div>
-    <h1>에너지 뉴스<br><em>큐레이터</em></h1>
+    <h1>에너지 뉴스<br><em>큐레이터</em>
+      <span class="class-badge" id="classBadge"></span>
+    </h1>
     <p class="hero-desc">
       내 카드를 클릭해서 내용을 학습하고,<br>
       다 읽으면 <strong>패들렛으로 돌아가</strong> 브리핑 답변을 작성하세요.
     </p>
+    <div class="no-class-box" id="noClassBox">
+      ⚠️ <strong>반 정보가 없습니다.</strong><br>
+      선생님께 받은 링크로 다시 접속해주세요.<br>
+      <small style="opacity:0.7">예시: main_hub.html<strong>?class=3</strong></small>
+    </div>
   </div>
+</div>
+
+<!-- 패들렛 바로가기 -->
+<div class="padlet-bar" style="margin-top:24px;">
+  <a href="#" class="padlet-btn" id="padletBtn" target="_blank">
+    <div class="pb-left">
+      <span class="pb-icon">📌</span>
+      <div class="pb-text">
+        <div id="padletBtnLabel">패들렛 바로가기</div>
+        <div class="pb-sub">학습 후 여기서 브리핑 답변을 작성하세요</div>
+      </div>
+    </div>
+    <span class="pb-arrow">→</span>
+  </a>
 </div>
 
 <!-- 활동 흐름 -->
 <div class="flow-wrap">
   <div class="flow-label">📋 활동 순서</div>
   <div class="flow-row">
-    <div class="flow-step">
-      <div class="fs-num">1</div>
-      <div class="fs-txt">패들렛에서<br>내 카드 확인</div>
-    </div>
-    <div class="flow-step">
-      <div class="fs-num">2</div>
-      <div class="fs-txt">아래에서<br>카드 클릭</div>
-    </div>
-    <div class="flow-step">
-      <div class="fs-num">3</div>
-      <div class="fs-txt">5분간<br>내용 학습</div>
-    </div>
-    <div class="flow-step">
-      <div class="fs-num">4</div>
-      <div class="fs-txt">패들렛으로<br>돌아가기</div>
-    </div>
-    <div class="flow-step">
-      <div class="fs-num">5</div>
-      <div class="fs-txt">브리핑 답변<br>작성!</div>
-    </div>
+    <div class="flow-step"><div class="fs-num">1</div><div class="fs-txt">패들렛에서<br>내 카드 확인</div></div>
+    <div class="flow-step"><div class="fs-num">2</div><div class="fs-txt">아래에서<br>카드 클릭</div></div>
+    <div class="flow-step"><div class="fs-num">3</div><div class="fs-txt">5분간<br>내용 학습</div></div>
+    <div class="flow-step"><div class="fs-num">4</div><div class="fs-txt">패들렛으로<br>돌아가기</div></div>
+    <div class="flow-step"><div class="fs-num">5</div><div class="fs-txt">브리핑 답변<br>작성!</div></div>
   </div>
 </div>
 
@@ -314,13 +278,9 @@ body {
 
 <!-- 카드 4개 -->
 <div class="cards-wrap">
-  <div class="cards-label">
-    <span class="dot">↓</span> 내 카드를 클릭하세요
-  </div>
+  <div class="cards-label"><span class="dot">↓</span> 내 카드를 클릭하세요</div>
   <div class="card-grid">
-
-    <!-- A -->
-    <a href="https://techtkim.github.io/energy-card/card_a.html" class="card-link ca" target="_blank">
+    <a href="CARD_A_URL_HERE" class="card-link ca" target="_blank">
       <div class="card-header">
         <div class="card-code">A</div>
         <span class="card-emoji">⛽</span>
@@ -331,16 +291,14 @@ body {
       <div class="card-body">
         <div class="card-q">화석연료는 얼마나 남았나?<br>한국의 에너지 수입 의존도는?</div>
         <div class="kw-row">
-          <span class="kw">석유 ~50년</span>
-          <span class="kw">수입 95%</span>
+          <span class="kw">수십 년 안에 고갈</span>
+          <span class="kw">수입 93~94%</span>
           <span class="kw">에너지 안보</span>
         </div>
         <div class="go-btn">카드 A 학습하기 <span>→</span></div>
       </div>
     </a>
-
-    <!-- B -->
-    <a href="https://techtkim.github.io/energy-card/card_b.html" class="card-link cb" target="_blank">
+    <a href="CARD_B_URL_HERE" class="card-link cb" target="_blank">
       <div class="card-header">
         <div class="card-code">B</div>
         <span class="card-emoji">🌡️</span>
@@ -358,9 +316,7 @@ body {
         <div class="go-btn">카드 B 학습하기 <span>→</span></div>
       </div>
     </a>
-
-    <!-- C -->
-    <a href="https://techtkim.github.io/energy-card/card_c.html" class="card-link cc" target="_blank">
+    <a href="CARD_C_URL_HERE" class="card-link cc" target="_blank">
       <div class="card-header">
         <div class="card-code">C</div>
         <span class="card-emoji">⚖️</span>
@@ -371,16 +327,14 @@ body {
       <div class="card-body">
         <div class="card-q">전기 없이 사는 사람이 얼마나 있나?<br>그 결과는 어떤 삶을 만드나?</div>
         <div class="kw-row">
-          <span class="kw">7억 명</span>
+          <span class="kw">7억 3천만 명</span>
           <span class="kw">에너지 빈곤</span>
           <span class="kw">인권</span>
         </div>
         <div class="go-btn">카드 C 학습하기 <span>→</span></div>
       </div>
     </a>
-
-    <!-- D -->
-    <a href="https://techtkim.github.io/energy-card/card_d.html" class="card-link cd" target="_blank">
+    <a href="CARD_D_URL_HERE" class="card-link cd" target="_blank">
       <div class="card-header">
         <div class="card-code">D</div>
         <span class="card-emoji">🌱</span>
@@ -391,16 +345,61 @@ body {
       <div class="card-body">
         <div class="card-q">세계는 이미 어디까지 왔나?<br>한국의 에너지 전환 목표는?</div>
         <div class="kw-row">
-          <span class="kw">덴마크 60%</span>
+          <span class="kw">덴마크 60%+</span>
           <span class="kw">태양광·풍력</span>
           <span class="kw">2030 목표</span>
         </div>
         <div class="go-btn">카드 D 학습하기 <span>→</span></div>
       </div>
     </a>
-
   </div>
 </div>
 
+<script>
+// ── 반별 패들렛 URL 설정 ──────────────────────────────
+// 아래 URL들을 실제 패들렛 주소로 교체하세요
+const PADLET_URLS = {
+  1: "https://padlet.com/XXXXXXX/1반패들렛주소",
+  2: "https://padlet.com/XXXXXXX/2반패들렛주소",
+  3: "https://padlet.com/pad4_135_1/203_-zlc2nqvtn3zw0x89",
+  4: "https://padlet.com/XXXXXXX/4반패들렛주소",
+  5: "https://padlet.com/XXXXXXX/5반패들렛주소",
+  6: "https://padlet.com/XXXXXXX/6반패들렛주소",
+  7: "https://padlet.com/pad4_135_1/207_-aq3rt5k8q10y1e5k",
+  8: "https://padlet.com/XXXXXXX/8반패들렛주소",
+};
+// ─────────────────────────────────────────────────────
+
+// URL에서 ?class=N 읽기
+const params = new URLSearchParams(window.location.search);
+const classNum = parseInt(params.get("class"));
+
+const badge    = document.getElementById("classBadge");
+const noBox    = document.getElementById("noClassBox");
+const padBtn   = document.getElementById("padletBtn");
+const padLabel = document.getElementById("padletBtnLabel");
+
+if (classNum >= 1 && classNum <= 8) {
+  // 반 배지 표시
+  badge.textContent = classNum + "반";
+
+  // 페이지 제목 변경
+  document.title = classNum + "반 — 에너지 뉴스 큐레이터";
+
+  // 패들렛 버튼 연결
+  const url = PADLET_URLS[classNum];
+  padBtn.href = url;
+  padLabel.textContent = classNum + "반 패들렛 바로가기";
+
+} else {
+  // 반 번호 없거나 잘못된 경우
+  badge.textContent = "반 미확인";
+  badge.classList.add("warn");
+  noBox.style.display = "block";
+  padBtn.style.opacity = "0.4";
+  padBtn.style.pointerEvents = "none";
+  padLabel.textContent = "패들렛 (반 번호 필요)";
+}
+</script>
 </body>
 </html>
