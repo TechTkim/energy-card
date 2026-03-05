@@ -325,11 +325,33 @@
   <div class="padlet-cta">
     <h3>📌 이제 패들렛으로 돌아가세요</h3>
     <p>학습한 내용을 바탕으로<br><strong>카드 B 담당 칸</strong>에 질문 3의 답변을 작성해주세요.<br>다른 모둠의 카드 내용도 함께 살펴보세요!</p>
-    <a href="https://padlet.com/pad4_135_1/energy201" class="btn-padlet">
+    <a href="#" id="padletBtn" class="btn-padlet">
       패들렛으로 답변 작성하기 <span>→</span>
     </a>
   </div>
 
 </div>
+
+<script>
+const PADLET_URLS = {
+  1: "",
+  2: "",
+  3: "https://padlet.com/pad4_135_1/203_-zlc2nqvtn3zw0x89",
+  4: "",
+  5: "",
+  6: "",
+  7: "https://padlet.com/pad4_135_1/207_-aq3rt5k8q10y1e5k",
+  8: "",
+};
+const params = new URLSearchParams(window.location.search);
+const classNum = parseInt(params.get("class"));
+const btn = document.getElementById("padletBtn");
+if (classNum >= 1 && classNum <= 8 && PADLET_URLS[classNum]) {
+  btn.href = PADLET_URLS[classNum];
+} else {
+  btn.style.opacity = "0.4";
+  btn.style.pointerEvents = "none";
+}
+</script>
 </body>
 </html>

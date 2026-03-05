@@ -391,6 +391,11 @@ if (classNum >= 1 && classNum <= 8) {
   padBtn.href = url;
   padLabel.textContent = classNum + "반 패들렛 바로가기";
 
+  // 카드 링크에 ?class=N 자동으로 붙이기
+  document.querySelectorAll(".card-link").forEach(link => {
+    link.href = link.href + "?class=" + classNum;
+  });
+
 } else {
   // 반 번호 없거나 잘못된 경우
   badge.textContent = "반 미확인";
