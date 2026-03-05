@@ -125,8 +125,8 @@ body { background: #F0F4F8; color: var(--dark); min-height: 100vh; }
 }
 .notice-box h3 { font-size: 14px; font-weight: 700; color: var(--teal); margin-bottom: 8px; }
 .notice-box ul { list-style: none; }
-.notice-box li { font-size: 13px; line-height: 1.7; padding: 3px 0; display: flex; gap: 8px; }
-.notice-box li::before { content: '→'; color: var(--mint); font-weight: 700; flex-shrink: 0; }
+.notice-box li { font-size: 13px; line-height: 1.7; padding: 3px 0; padding-left: 18px; position: relative; }
+.notice-box li::before { content: '→'; color: var(--mint); font-weight: 700; position: absolute; left: 0; }
 
 /* ── CARDS ── */
 .cards-wrap { max-width: 860px; margin: 28px auto 60px; padding: 0 24px; }
